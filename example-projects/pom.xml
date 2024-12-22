@@ -82,5 +82,7 @@
 	</build>
 	<modules>
 		<module>personal-blog</module>
+		
+		<module>friends-network</module>
 	</modules>
 </project>
