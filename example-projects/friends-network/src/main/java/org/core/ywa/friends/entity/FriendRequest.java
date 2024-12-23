@@ -20,17 +20,17 @@ public class FriendRequest {
 	private FriendRequestPK id;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(insertable = false, updatable = false)
+	@JoinColumn(name="from_user")
 	private User fromUser;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(insertable = false, updatable = false)
+	@JoinColumn(name="to_user")
 	private User toUser;
 
 	private LocalDate requestedAt;
-	private Status status;
+	private FriendRequestStatus status;
 	
-	public enum Status {
+	public enum FriendRequestStatus {
 		Inbox, Request
 	}
 	

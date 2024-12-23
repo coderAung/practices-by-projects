@@ -1,5 +1,7 @@
 package org.core.ywa.friends.entity;
 
+import java.time.LocalDate;
+
 import org.core.ywa.friends.entity.pk.FriendPK;
 
 import jakarta.persistence.Column;
@@ -22,6 +24,8 @@ public class Friend {
 	@ManyToOne(optional = false)
 	@JoinColumn(insertable = false, updatable = false)
 	private User friend;
+	
+	private LocalDate createdAt;
 	
 	@Column(nullable = false)
 	private Status stauts;

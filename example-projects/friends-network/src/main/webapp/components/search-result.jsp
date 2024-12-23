@@ -35,14 +35,21 @@
 		<div class="col-auto flex-fill text-end align-self-center">
 			<button class="btn btn-outline-secondary">View</button>
 			<c:choose>
-				<c:when test="${user.status}">
+				<c:when test="${user.status eq 'Friend'}">
 					<button class="btn btn-outline-danger">Unfriend</button>
+				</c:when>
+				<c:when test="${user.status eq 'Inbox'}">
+					<button class="btn btn-outline-primary">Confirm</button>
+					<button class="btn btn-outline-danger">Delete</button>
+				</c:when>
+				<c:when test="${user.status eq 'Requested'}">
+					<button class="btn btn-outline-danger">Cancel</button>
 				</c:when>
 				<c:otherwise>
 					<c:url var="add" value="/requests/send"/>
-					<form action="${add}" method="post">
-						<input name="id" value="${user.id}">
-						<input name="keyword" value="${param.keyword}">
+					<form action="${add}" method="post" class="d-inline">
+						<input name="id" value="${user.id}" type="hidden">
+						<input name="keyword" value="${param.keyword}" type="hidden">
 						<button type="submit" class="btn btn-outline-primary">Add</button>
 					</form>
 				</c:otherwise>

@@ -1,14 +1,19 @@
 package org.core.ywa.friends.entity.pk;
 
-import java.time.LocalDate;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class FriendRequestPK {
-	private int fromUser;
-	private int toUser;
-	private LocalDate requestedAt;
+	
+	@Column(name = "from_user_id")
+	private int fromUserId;
+	@Column(name = "to_user_id")
+	private int toUserId;
 }

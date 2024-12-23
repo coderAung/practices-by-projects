@@ -2,6 +2,7 @@ package org.core.ywa.friends.controller;
 
 import java.io.IOException;
 
+import org.core.ywa.friends.dto.input.UserSearchForm;
 import org.core.ywa.friends.lib.servlet.Controller;
 import org.core.ywa.friends.service.UserService;
 
@@ -25,7 +26,10 @@ public class UserSearchController extends Controller {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		var keyword = req.getParameter("keyword");
-		var users = service.findByKeyword(keyword, getLoginUser(req));
+		var form = new UserSearchForm();
+		form.setLoginUser(getLoginUser(req));
+		form.setKeyword(keyword);
+		var users = service.findByKeyword(form);
 		req.setAttribute("users", users);
 		view("/users/result", req, resp);
 	}

@@ -27,7 +27,7 @@ public class ApplicationConfiguration {
 	@Bean
 	DataSource dataSource() {
 		var bean = new HikariDataSource();
-		bean.setJdbcUrl("jdbc:mysql://localhost:3306/friends_network");
+		bean.setJdbcUrl("jdbc:mysql://localhost:3306/friendsDb");
 		bean.setUsername("root");
 		bean.setPassword("admin");
 		bean.setDriverClassName("com.mysql.cj.jdbc.Driver");

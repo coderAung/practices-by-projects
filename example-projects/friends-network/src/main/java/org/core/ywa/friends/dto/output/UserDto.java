@@ -10,12 +10,19 @@ public class UserDto {
 	private int id;
 	private String name;
 	private String profile;
-	private boolean status;
+	private UserStatus status = UserStatus.Stranger;
 	
 	private List<MutualFriendThumbnail> thumbnails;
 	
 	public int getMutuals() {
 		return thumbnails.size();
 	}
+
+	public enum UserStatus {
+		Friend, Requested, Inbox, Stranger
+	}
 	
+	public String getStatus() {
+		return status.name();
+	}
 }
