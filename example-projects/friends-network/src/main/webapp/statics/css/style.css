@@ -56,3 +56,23 @@ img {
 	width: 100%;
 	height: auto;
 }
+
+.result-container {
+	max-height: 50vh;
+	min-height: 50vh;
+	overflow: auto;
+}
+
+.mutual-thumbnail {
+	width: 20px;
+	height: 20px;
+	border: 2px solid #2780e0;
+	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 2px;
+	margin-left: 2px;
+}

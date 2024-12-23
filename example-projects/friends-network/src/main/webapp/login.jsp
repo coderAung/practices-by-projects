@@ -12,11 +12,11 @@
 			<form method="post">
 				<div class="input-group mb-3">
 					<span class="input-group-text text-primary"><i class="bi bi-person-circle"></i></span>
-					<input type="text" class="form-control" name="email" placeholder="Enter Email"/>
+					<input type="text" class="form-control" name="email" placeholder="Enter Email" required="required"/>
 				</div>
 				<div class="input-group mb-3">
 					<span class="input-group-text text-primary"><i class="bi bi-key-fill"></i></span>
-					<input type="text" class="form-control" name="password" placeholder="Enter Password"/>
+					<input type="text" class="form-control" name="password" placeholder="Enter Password" required="required"/>
 				</div>
 
 				<div class="text-end">

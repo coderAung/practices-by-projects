@@ -3,6 +3,8 @@ package org.core.ywa.friends.lib.servlet;
 import java.io.IOException;
 import java.util.Map;
 
+import org.core.ywa.friends.dto.LoginUser;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,6 +32,10 @@ public abstract class Controller extends SpringSupportServlet {
 		
 	protected int parseInt(String str) {
 		return Integer.parseInt(str);
+	}
+	
+	protected LoginUser getLoginUser(HttpServletRequest req) {
+		return (LoginUser) req.getSession(true).getAttribute("loginUser");
 	}
 	
 }

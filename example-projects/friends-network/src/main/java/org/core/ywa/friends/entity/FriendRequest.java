@@ -1,5 +1,7 @@
 package org.core.ywa.friends.entity;
 
+import java.time.LocalDate;
+
 import org.core.ywa.friends.entity.pk.FriendRequestPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -25,4 +27,11 @@ public class FriendRequest {
 	@JoinColumn(insertable = false, updatable = false)
 	private User toUser;
 
+	private LocalDate requestedAt;
+	private Status status;
+	
+	public enum Status {
+		Inbox, Request
+	}
+	
 }

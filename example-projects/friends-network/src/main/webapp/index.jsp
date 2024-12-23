@@ -14,7 +14,7 @@
 				<app:alert alert="${alert}" className="alert-info" />
 
 				<h5 class="container mb-3"><i class="bi bi-person me-3"></i>Profile Info</h5>
-				<div class="container mb-3">
+				<div class="container mb-3 border-bottom pb-3">
 					<div class="row">
 						<div class="col-auto d-flex justify-content-center">
 							<div class="profile-img-container align-self-center">
@@ -28,16 +28,11 @@
 						</div>
 					</div>
 				</div>
-					
-				<h5 class="container mb-3 border-top pt-2"><i class="bi bi-search me-3"></i>Search</h5>
-				<form class="d-flex mb-4 container">
-					<div class="input-group">
-						<span class="input-group-text bg-primary text-white"><i class="bi bi-search"></i></span>
-						<input type="text" class="form-control"
-							placeholder="Find Friends" />
-					</div>
-					<button class="btn btn-outline-primary w-25 ms-3">Find</button>
-				</form>
+				
+				<h5 class="container mb-3">
+					<i class="bi bi-search me-3"></i>Search
+				</h5>
+				<jsp:include page="/components/search-bar.jsp"/>
 				
 				<h5 class="container mb-3 border-top pt-2"><i class="bi bi-sliders2 me-3"></i>Functions</h5>
 				<div class="container mb-3">
@@ -74,9 +69,10 @@
 							</div>
 						</div>
 						<div class="col-4 text-center">
-							<div class="btn btn-outline-danger w-100">
+							<div class="btn btn-outline-danger w-100" data-bs-toggle="modal" data-bs-target="#logout-form">
 								<i class="bi bi-box-arrow-right me-3"></i> Logout
 							</div>
+							<jsp:include page="/components/modals/logout-form.jsp"/>
 						</div>
 					</div>
 				</div>
