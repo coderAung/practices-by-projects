@@ -7,7 +7,6 @@ import org.core.ywa.friends.entity.pk.FriendPK;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
@@ -18,17 +17,15 @@ public class Friend {
 	private FriendPK id;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(insertable = false, updatable = false)
 	private User owner;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(insertable = false, updatable = false)
 	private User friend;
 	
 	private LocalDate createdAt;
 	
 	@Column(nullable = false)
-	private Status stauts;
+	private Status status;
 	
 	public enum Status {
 		Accepted, Confirm

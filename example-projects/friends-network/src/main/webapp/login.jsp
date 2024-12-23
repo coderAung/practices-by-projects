@@ -7,7 +7,7 @@
 		<h4 class="text-center mb-4">Login</h4>
 		<div class="container w-75">
 		
-			<app:alert alert="${alert}" className="alert-info"/>
+			<app:alert alert="${alert}" className="px-2 py-3" btnColor="btn-outline-info"/>
 		
 			<form method="post">
 				<div class="input-group mb-3">

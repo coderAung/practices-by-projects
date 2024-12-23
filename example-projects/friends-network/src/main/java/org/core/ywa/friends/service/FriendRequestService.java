@@ -52,4 +52,13 @@ public class FriendRequestService {
 		friendRequestRepo.save(inbox);
 		return toUser.getId();
 	}
+
+	@Transactional
+	public void cancel(FriendRequestForm form) {
+		var request = friendRequestRepo.findById(new FriendRequestPK(form.getFromUser(), form.getToUser())).orElseThrow(() -> new ApplicationException("Invalid operation"));
+		friendRequestRepo.delete(request);
+		var inbox = friendRequestRepo.findById(new FriendRequestPK(form.getToUser(), form.getFromUser())).orElseThrow(() -> new ApplicationException("Invalid Operation"));
+		friendRequestRepo.delete(inbox);
+	}
+	
 }

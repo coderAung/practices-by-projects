@@ -13,18 +13,19 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = { "/users/*", "/settings/*", "/inboxes/*", "/requests/*", "/friends/*"})
-public class Authenticator implements Filter {
+@WebFilter("/login")
+public class LoginFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		
 		var req = (HttpServletRequest) request;		
 		var session = req.getSession(true);
 		var loginUser = session.getAttribute("loginUser");
-		if (null == loginUser) {
+		if(null != loginUser) {
 			var resp = (HttpServletResponse) response;
-			Router.redirect("/login", req, resp);
+			Router.redirect("/", req, resp);
 			return;
 		}
 		chain.doFilter(request, response);

@@ -3,6 +3,8 @@ package org.core.ywa.friends.controller;
 import java.io.IOException;
 
 import org.core.ywa.friends.dto.input.LoginForm;
+import org.core.ywa.friends.dto.output.Alert;
+import org.core.ywa.friends.dto.output.Alert.AlertType;
 import org.core.ywa.friends.lib.servlet.Controller;
 import org.core.ywa.friends.service.UserService;
 import org.core.ywa.friends.util.exception.ApplicationException;
@@ -43,7 +45,7 @@ public class LoginController extends Controller {
 			redirect("/", req, resp);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			req.getSession(true).setAttribute("alert", e.getMessage());
+			req.getSession(true).setAttribute("alert", new Alert(e.getMessage(), AlertType.Info));
 			redirect("/login", req, resp);
 		}
 	}

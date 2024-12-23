@@ -39,11 +39,24 @@
 					<button class="btn btn-outline-danger">Unfriend</button>
 				</c:when>
 				<c:when test="${user.status eq 'Inbox'}">
-					<button class="btn btn-outline-primary">Confirm</button>
-					<button class="btn btn-outline-danger">Delete</button>
+					<form action="${pageContext.request.contextPath}/friends/confirm" class="d-inline" method="post">
+						<input name="id" value="${user.id}" type="hidden">
+						<input name="keyword" value="${param.keyword}" type="hidden">
+						<button class="btn btn-outline-primary">Confirm</button>
+					</form>
+
+					<form action="${pageContext.request.contextPath}/inboxes/delete" class="d-inline" method="post">
+						<input name="id" value="${user.id}" type="hidden">
+						<input name="keyword" value="${param.keyword}" type="hidden">
+						<button class="btn btn-outline-danger">Delete</button>
+					</form>
 				</c:when>
 				<c:when test="${user.status eq 'Requested'}">
-					<button class="btn btn-outline-danger">Cancel</button>
+					<form action="${pageContext.request.contextPath}/requests/cancel" class="d-inline" method="post">
+						<input name="id" value="${user.id}" type="hidden">
+						<input name="keyword" value="${param.keyword}" type="hidden">
+						<button class="btn btn-outline-danger">Cancel</button>
+					</form>
 				</c:when>
 				<c:otherwise>
 					<c:url var="add" value="/requests/send"/>

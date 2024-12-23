@@ -11,7 +11,7 @@
 		<app:master title="Home">
 			<div class="bg-white rounded p-3 align-self-center w-50">
 
-				<app:alert alert="${alert}" className="alert-info" />
+				<app:alert alert="${alert}" className="alert-info" btnColor="btn-outline-info"/>
 
 				<h5 class="container mb-3"><i class="bi bi-person me-3"></i>Profile Info</h5>
 				<div class="container mb-3 border-bottom pb-3">
