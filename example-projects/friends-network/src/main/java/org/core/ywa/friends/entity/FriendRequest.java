@@ -20,11 +20,11 @@ public class FriendRequest {
 	private FriendRequestPK id;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name="from_user")
+	@JoinColumn(name="from_id", insertable = false, updatable = false)
 	private User fromUser;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name="to_user")
+	@JoinColumn(name="to_id", insertable = false, updatable = false)
 	private User toUser;
 
 	private LocalDate requestedAt;

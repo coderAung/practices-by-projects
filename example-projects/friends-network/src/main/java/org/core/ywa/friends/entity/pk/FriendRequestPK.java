@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FriendRequestPK {
 	
-	@Column(name = "from_user_id")
+	@Column(name = "from_id")
 	private int fromUserId;
-	@Column(name = "to_user_id")
+	@Column(name = "to_id")
 	private int toUserId;
 }

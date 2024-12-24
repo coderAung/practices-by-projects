@@ -11,7 +11,7 @@
 		<app:master title="Home">
 			<div class="bg-white rounded p-3 align-self-center w-50">
 
-				<app:alert alert="${alert}" className="alert-info" btnColor="btn-outline-info"/>
+				<app:alert alert="${alert}" className="px-2 py-3"/>
 
 				<h5 class="container mb-3"><i class="bi bi-person me-3"></i>Profile Info</h5>
 				<div class="container mb-3 border-bottom pb-3">
@@ -64,9 +64,10 @@
 							</div>
 						</div>
 						<div class="col-4 text-center">
-							<div class="btn btn-outline-secondary w-100">
+							<div class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#change-password">
 								<i class="bi bi-gear me-3"></i> Password
 							</div>
+							<jsp:include page="/components/modals/change-password.jsp"/>
 						</div>
 						<div class="col-4 text-center">
 							<div class="btn btn-outline-danger w-100" data-bs-toggle="modal" data-bs-target="#logout-form">

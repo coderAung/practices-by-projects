@@ -36,7 +36,11 @@
 			<button class="btn btn-outline-secondary">View</button>
 			<c:choose>
 				<c:when test="${user.status eq 'Friend'}">
-					<button class="btn btn-outline-danger">Unfriend</button>
+					<form action="${pageContext.request.contextPath}/friends/delete" class="d-inline" method="post">
+						<input name="id" value="${user.id}" type="hidden">
+						<input name="keyword" value="${param.keyword}" type="hidden">
+						<button class="btn btn-outline-danger">Unfriend</button>
+					</form>
 				</c:when>
 				<c:when test="${user.status eq 'Inbox'}">
 					<form action="${pageContext.request.contextPath}/friends/confirm" class="d-inline" method="post">

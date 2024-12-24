@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import org.core.ywa.friends.dto.input.FriendForm;
+import org.core.ywa.friends.dto.output.Alert;
+import org.core.ywa.friends.dto.output.Alert.AlertType;
 import org.core.ywa.friends.lib.servlet.Controller;
 import org.core.ywa.friends.service.FriendService;
+import org.core.ywa.friends.util.exception.ApplicationException;
 import org.springframework.util.StringUtils;
 
 import jakarta.servlet.ServletException;
@@ -13,7 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/friends", "/friends/confirm", "/friend/delete"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/friends", "/friends/confirm", "/friends/delete"}, loadOnStartup = 1)
 public class FriendController extends Controller {
 
 	private static final long serialVersionUID = 1L;
@@ -60,7 +63,22 @@ public class FriendController extends Controller {
 		redirect("/", req, resp);
 	}
 
-	private void delete(HttpServletRequest req, HttpServletResponse resp) {
+	private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		var userId = req.getParameter("id");
+		var form = new FriendForm();
+		form.setOwnerId(parseInt(userId));
+		form.setFriendId(getLoginUser(req).getId());
+		try {
+			service.delete(form);
+		} catch(ApplicationException e) {
+			req.getSession(true).setAttribute("alert", new Alert(e.getMessage(), AlertType.Warning));
+		}
+		var keyword = req.getParameter("keyword");
+		if(StringUtils.hasLength(keyword)) {
+			redirect("/users/search?keyword=%s".formatted(keyword), req, resp);
+			return;
+		}
+		redirect("/", req, resp);
 	}
 
 }

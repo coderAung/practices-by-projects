@@ -8,6 +8,7 @@ import org.core.ywa.friends.entity.pk.FriendRequestPK;
 import org.core.ywa.friends.repo.FriendRepo;
 import org.core.ywa.friends.repo.FriendRequestRepo;
 import org.core.ywa.friends.repo.UserRepo;
+import org.core.ywa.friends.util.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +55,16 @@ public class FriendService {
 
 		return form.getFriendId();
 	}
+
+	public void delete(FriendForm form) {
+		var ownerSidePK = new FriendPK(form.getOwnerId(), form.getFriendId());
+		var ownerSide = friendRepo.findById(ownerSidePK).orElseThrow(() -> new ApplicationException("Invalid operation!"));
+		friendRepo.delete(ownerSide);
+		
+		var friendSidePK = new FriendPK(form.getFriendId(), form.getOwnerId());
+		var friendSide = friendRepo.findById(friendSidePK).orElseThrow(() -> new ApplicationException("Invalid operation!"));
+		friendRepo.delete(friendSide);
+	}
+	
 
 }

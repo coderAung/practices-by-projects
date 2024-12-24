@@ -2,9 +2,11 @@ package org.core.ywa.friends.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.core.ywa.friends.dto.LoginUser;
 import org.core.ywa.friends.dto.input.LoginForm;
+import org.core.ywa.friends.dto.input.PasswordForm;
 import org.core.ywa.friends.dto.input.UserSearchForm;
 import org.core.ywa.friends.dto.output.MutualFriendThumbnail;
 import org.core.ywa.friends.dto.output.UserDto;
@@ -20,6 +22,10 @@ import org.core.ywa.friends.util.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class UserService {
@@ -33,6 +39,9 @@ public class UserService {
 	@Autowired
 	private FriendRequestRepo friendRequestRepo;
 
+	@Autowired
+	private ObjectMapper mapper;
+	
 	public LoginUser login(LoginForm form) {
 		return userRepo.findByEmailAndPassword(form.getEmail(), form.getPassword())
 				.map(LoginUser::from).orElseThrow(() -> new ApplicationException("Email or Password is incorrect!"));
@@ -66,4 +75,40 @@ public class UserService {
 				}).toList();
 	}
 
+	public String checkPassword(LoginUser loginUser, String oldPassword) {
+		var isCorrect = userRepo.existsByIdAndPassword(loginUser.getId(), oldPassword);
+		try {
+			return mapper.writeValueAsString(Map.of("isCorrect", isCorrect));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		throw new ApplicationException("Invalid Operation!");
+	}
+
+	@Transactional
+	public void changePassword(PasswordForm form) {
+		if(!StringUtils.hasLength(form.getOldPassword()) ||
+				!StringUtils.hasLength(form.getNewPassword()) ||
+				!StringUtils.hasLength(form.getConfirmPassword())) {
+			throw new ApplicationException("Fields cannot be empty.");
+		}
+		
+		if(!form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new ApplicationException("Passwords are not match.");
+		}
+		
+		if(form.getNewPassword().equals(form.getOldPassword())) {
+			throw new ApplicationException("New password cannot be the old password.");
+		}
+		
+		userRepo.findById(form.getLoginUserId()).ifPresent(user -> {
+			if(!user.getPassword().equals(form.getOldPassword())) {
+				throw new ApplicationException("Old password is incorrect");
+			}
+			
+			user.setPassword(form.getNewPassword());
+			userRepo.save(user);
+		});
+		
+	}
 }
